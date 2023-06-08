@@ -8,6 +8,7 @@
 using namespace std;
 
 #define MESSAGE_BUFFER_SIZE 500
+#define PING "@ping"
 #define DISCONNECT "@exit"
 #define VIEW "@v"
 #define NAME "Ivan"
@@ -42,7 +43,16 @@ int main() {
             
             char messageBuffer[MESSAGE_BUFFER_SIZE];
             recv(clientSocket, messageBuffer, sizeof(messageBuffer), 0);
-            puts(messageBuffer);
+
+            if (strcmp(messageBuffer, PING) == 0)
+            {
+                puts("Connected to server.");
+
+                
+
+            }
+
+            
             
            
         
@@ -78,6 +88,7 @@ int main() {
 }
 
 
+/*
 int main(int argc, char* argv[])
 {
     try
@@ -130,4 +141,5 @@ int main(int argc, char* argv[])
     
     return EXIT_SUCCESS;
 }
+*/
 

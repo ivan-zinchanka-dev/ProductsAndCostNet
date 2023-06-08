@@ -3,6 +3,7 @@
 
 #pragma comment(lib, "Ws2_32.lib")
 
+#define PING "@ping"
 #define MAXCON 5
 #define MESSAGE_BUFFER_SIZE 500
 #define DISCONNECT "@exit"  
@@ -46,7 +47,7 @@ DWORD WINAPI ClientCall(LPVOID clientSocketPtr) {
 
 	char messageBuffer[MESSAGE_BUFFER_SIZE];
 
-	strcpy_s(messageBuffer, "CONNECTED_TO_SERVER");
+	strcpy_s(messageBuffer, PING);
 
 	send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);
 
@@ -137,6 +138,9 @@ int main(int argc, char* argv[]) {
 
 			closesocket(clientSocket);
 
+
+			puts("END");
+			
 			WSACleanup();
 			return EXIT_FAILURE;
 		}
