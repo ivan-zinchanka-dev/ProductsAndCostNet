@@ -147,10 +147,10 @@ namespace ProductsLogic
         
         while (_database.read(encryptedChars, sizeof(pair<int, Product>))) {
 
-            cout<<"ONE: ";
+            //cout<<"ONE: ";
             pair<int, Product> codeProductPair = *(reinterpret_cast<pair<int, Product>*>(EncryptionUtility::Decrypt(encryptedChars)));
 
-            cout<<codeProductPair.first << " " << codeProductPair.second<<endl;
+            //cout<<codeProductPair.first << " " << codeProductPair.second<<endl;
 
             products.emplace(codeProductPair);
         }
