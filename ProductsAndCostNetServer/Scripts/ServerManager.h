@@ -7,6 +7,7 @@
 using namespace ProductsLogic;
 
 #define PING "@ping"
+#define COMPLETE_SESSION "@complete_session"
 
 #define MAX_CLIENTS 10
 #define MESSAGE_BUFFER_SIZE 500

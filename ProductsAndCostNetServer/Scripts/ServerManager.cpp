@@ -64,9 +64,7 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
     SOCKET clientSocket = static_cast<SOCKET*>(clientSocketPtr)[0];
 
     char messageBuffer[MESSAGE_BUFFER_SIZE];
-
     strcpy_s(messageBuffer, PING);
-
     send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);
 
     while (recv(clientSocket, messageBuffer, sizeof(messageBuffer), 0)) {
@@ -75,7 +73,7 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
     } 
 
     _clientsCount--;
-
+    
     closesocket(clientSocket);
 
     return EXIT_SUCCESS;

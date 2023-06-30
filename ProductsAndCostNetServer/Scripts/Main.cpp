@@ -7,12 +7,8 @@
 
 #pragma comment(lib, "Ws2_32.lib")
 
-#define DISCONNECT "@exit"  
-#define VIEW "@v"
-
 using namespace std;
 using namespace ProductsLogic;
-
 
 int main(int argc, char* argv[]) {
 
@@ -75,7 +71,6 @@ int main(int argc, char* argv[]) {
 			}
 
 			closesocket(clientSocket);
-
 
 			puts("END");
 			
