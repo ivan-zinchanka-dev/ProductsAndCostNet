@@ -6,11 +6,17 @@
 
 using namespace ProductsLogic;
 
-#define PING "@ping"
-#define COMPLETE_SESSION "@complete_session"
-
-#define MAX_CLIENTS 10
+#define PING "@ping_______________"
+#define COMPLETE_SESSION "@complete_session___"
+#define VERIFY_PRODUCT "@verify_product_____"
+#define COMMAND_SIZE 20
 #define MESSAGE_BUFFER_SIZE 500
+#define CONNECTION_ERROR_MSG "Connection error was occurred"
+#define MAX_CLIENTS 10
+
+#define STR_TRUE "1"
+#define STR_FALSE "0"
+
 
 enum class ServerState
 {

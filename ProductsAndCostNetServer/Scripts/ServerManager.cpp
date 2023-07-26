@@ -68,8 +68,26 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
     send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);
 
     while (recv(clientSocket, messageBuffer, sizeof(messageBuffer), 0)) {
+
+        string message(messageBuffer);
+        string commandRaw = message.substr(0, COMMAND_SIZE);
+        const char* command = commandRaw.c_str();
         
-        send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
+        cout << "Received: " << command <<endl;
+        
+        if (strcmp(command, VERIFY_PRODUCT) == 0)
+        {
+            cout << "Verify" <<endl;
+            
+            strcpy_s(messageBuffer, STR_TRUE);
+            send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
+        }
+        else if (strcmp(command, COMPLETE_SESSION) == 0)
+        {
+            break;
+        }
+        
+        //send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
     } 
 
     _clientsCount--;
