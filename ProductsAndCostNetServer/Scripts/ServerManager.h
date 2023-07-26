@@ -9,6 +9,8 @@ using namespace ProductsLogic;
 #define PING "@ping_______________"
 #define COMPLETE_SESSION "@complete_session___"
 #define VERIFY_PRODUCT "@verify_product_____"
+#define CALCULATE_QUERY_COST "@calc_query_cost____"
+#define QUERY_WORDS_DELIMITER '|'
 #define COMMAND_SIZE 20
 #define MESSAGE_BUFFER_SIZE 500
 #define CONNECTION_ERROR_MSG "Connection error was occurred"

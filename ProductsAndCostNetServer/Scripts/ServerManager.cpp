@@ -1,5 +1,9 @@
 ﻿#include "ServerManager.h"
 
+#include <sstream>
+#include <list>
+#include <vector>
+
 volatile int ServerManager::_clientsCount = 0;
 volatile ServerState ServerManager::_state = ServerState::WORKING;
 ProductStore ServerManager::_productStore = ProductStore("Resources\\database.bin");
@@ -83,6 +87,51 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
             string productName = message.substr(COMMAND_SIZE, message.size());
             strcpy_s(messageBuffer, _productStore.ContainsProduct(productName) ? STR_TRUE : STR_FALSE);
             send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
+        }
+        else if (strcmp(command, CALCULATE_QUERY_COST) == 0)
+        {
+            cout << "Calc" <<endl;
+            //string serializedQuery = message.substr(COMMAND_SIZE, message.size());
+
+            stringstream serializedQuery;
+            serializedQuery.str(message.substr(COMMAND_SIZE, message.size()));
+            
+            string queryWordBuffer;
+            vector<string> queryNames;
+            vector<string> queryCounts;
+
+            bool toNames = true;
+            
+            while (getline(serializedQuery, queryWordBuffer, QUERY_WORDS_DELIMITER))
+            {
+                toNames ? queryNames.emplace_back(queryWordBuffer) : queryCounts.emplace_back(queryWordBuffer);
+                toNames = !toNames;
+            }
+
+            list<Product> productsQuery;
+            
+            for (int i = 0; i < queryNames.size(); i++)
+            {
+                Product deserializedProduct = Product(queryNames.at(i).c_str(), Default, stoi(queryCounts.at(i)));
+                productsQuery.emplace_back(deserializedProduct);
+            }
+
+            for (auto p : productsQuery)
+            {
+                cout << p << endl;
+            }
+
+            
+            
+            /*char* next_token = nullptr;
+            char *word = strtok_s(const_cast<char*>(serializedQuery.c_str()), QUERY_WORDS_DELIMITER, &next_token); 
+
+            while (word != nullptr) {
+                
+                word = strtok(nullptr, QUERY_WORDS_DELIMITER);
+            }*/
+            
+            
         }
         else if (strcmp(command, COMPLETE_SESSION) == 0)
         {
