@@ -2,12 +2,13 @@
 
 volatile int ServerManager::_clientsCount = 0;
 volatile ServerState ServerManager::_state = ServerState::WORKING;
+ProductStore ServerManager::_productStore = ProductStore("Resources\\database.bin");
 
 DWORD ServerManager::AdminCall(LPVOID lpVoid)
 {
     try
     {
-        ProductStore productStore("Resources\\database.bin");
+        //_productStore = ProductStore("Resources\\database.bin");
         bool needToExit = false;
         
         while (!needToExit)
@@ -20,21 +21,21 @@ DWORD ServerManager::AdminCall(LPVOID lpVoid)
         
             switch (_getch())
             {
-
+ 
             case '1':
-                productStore.PrintAllProducts();
+                _productStore.PrintAllProducts();
                 break;
         
             case '2':
-                productStore.CreateProduct();
+                _productStore.CreateProduct();
                 break;
 
             case '3':
-                productStore.EditProduct();
+                _productStore.EditProduct();
                 break;
                 
             case '4':
-                productStore.TryRemoveProduct();
+                _productStore.TryRemoveProduct();
                 break;
 
             case '0':
@@ -70,24 +71,24 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
     while (recv(clientSocket, messageBuffer, sizeof(messageBuffer), 0)) {
 
         string message(messageBuffer);
-        string commandRaw = message.substr(0, COMMAND_SIZE);
-        const char* command = commandRaw.c_str();
+        string rawCommand = message.substr(0, COMMAND_SIZE);
+        const char* command = rawCommand.c_str();
         
         cout << "Received: " << command <<endl;
         
         if (strcmp(command, VERIFY_PRODUCT) == 0)
         {
             cout << "Verify" <<endl;
-            
-            strcpy_s(messageBuffer, STR_TRUE);
+
+            string productName = message.substr(COMMAND_SIZE, message.size());
+            strcpy_s(messageBuffer, _productStore.ContainsProduct(productName) ? STR_TRUE : STR_FALSE);
             send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
         }
         else if (strcmp(command, COMPLETE_SESSION) == 0)
         {
+            cout << "Complete" <<endl;
             break;
         }
-        
-        //send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
     } 
 
     _clientsCount--;

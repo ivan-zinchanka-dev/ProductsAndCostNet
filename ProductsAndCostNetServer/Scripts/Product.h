@@ -20,6 +20,7 @@ namespace ProductsLogic
         Product(const char *, Money, int);
         Product(const Product&);
         friend ostream& operator<<(ostream&, const Product&);
+        const char* GetName() const;
         
     };
 }

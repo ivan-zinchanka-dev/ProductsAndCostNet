@@ -17,7 +17,7 @@ namespace ProductsLogic
         this->_cost = other._cost;
         this->_count = other._count;
     }
-
+    
     ostream& operator<<(ostream& out, const Product &product) {
     
         return out <<
@@ -25,6 +25,12 @@ namespace ProductsLogic
             "  Cost of unit: " << product._cost <<
                 "  Count: " << product._count;
     }
+
+    const char* Product::GetName() const
+    {
+        return _name;
+    }
+    
 }
 
 

@@ -39,11 +39,12 @@ namespace ProductsLogic
         
     public:
     
-        ProductStore(string);
+        ProductStore(const string& databasePath);
         void PrintAllProducts() const;
         void CreateProduct();
         void EditProduct();
         void TryRemoveProduct();
+        bool ContainsProduct(const string& productName);
         
     };
 }

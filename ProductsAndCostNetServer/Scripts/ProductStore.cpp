@@ -156,7 +156,7 @@ namespace ProductsLogic
         }
     }
 
-    ProductStore::ProductStore(string databasePath)
+    ProductStore::ProductStore(const string& databasePath)
     {
         _databasePath = databasePath;
         _productsSet = map<int, Product>();
@@ -311,7 +311,22 @@ namespace ProductsLogic
 
         ConsoleUtility::ClearRdbufIfNeed();
     }
-    
+
+    bool ProductStore::ContainsProduct(const string& productName)
+    {
+        const char* name = productName.c_str();
+        
+        for (const auto& pair : _productsSet)
+        {
+            if (strcmp(pair.second.GetName(), name) == 0)
+            {
+                return true;
+            }
+        }
+        
+        return false;
+        
+    }
 }
 
 

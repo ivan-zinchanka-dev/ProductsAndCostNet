@@ -26,15 +26,13 @@ enum class ServerState
 
 class ServerManager
 {
-    
-
 private:
     
     static volatile int _clientsCount;
     static volatile ServerState _state;
+    static ProductStore _productStore;
     
 public:
-
     
     static DWORD WINAPI AdminCall(LPVOID);
     static  DWORD WINAPI ClientCall(LPVOID);
