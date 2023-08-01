@@ -16,66 +16,64 @@ namespace MoneyLogic
         strcpy_s(_currency, other._currency);
     }
 
-    ostream& operator<<(ostream& out, const Money &moneyObject) {
+    ostream& operator<<(ostream& out, const Money &money) {
 
-        out << setiosflags(ios::fixed) << setprecision(2) << moneyObject._count << " " << moneyObject._currency;
+        out << setiosflags(ios::fixed) << setprecision(2) << money._count << " " << money._currency;
         return out;
     }
 
-    istream& operator>>(istream& in, Money &moneyObject) {
+    istream& operator>>(istream& in, Money &money) {
 
-        in >> moneyObject._count >> moneyObject._currency;
+        in >> money._count >> money._currency;
         return in;
     }
 
-    Money& Money::operator=(const Money &moneyObject)
+    Money& Money::operator=(const Money &other)
     {
-        _count = moneyObject._count;
-        strcpy_s(_currency, moneyObject._currency);
+        _count = other._count;
+        strcpy_s(_currency, other._currency);
 
         return *this;
     }
 
-    Money Money::operator+(const Money &moneyObject) {
-
-        if (strcmp(this->_currency, moneyObject._currency) == 0) {
-            
-            return Money(this->_count + moneyObject._count, _currency);
-        }
-        else 
-            return Default;
-        
-    }
-
-    Money Money::operator-(const Money &object) {
-
-        if (strcmp(this->_currency, object._currency) == 0) {
-            
-            return Money(this->_count - object._count, _currency);
-        }
-        else 
-            return Default;
-        
-    }
-
-    Money& Money::operator+=(const Money& moneyObject)
+    Money Money::operator+(const Money &other) const
     {
-        return *this = *this + moneyObject;
+        if (strcmp(this->_currency, other._currency) == 0) {
+            
+            return Money(this->_count + other._count, _currency);
+        }
+        else 
+            return Default;
     }
 
-    bool operator==(const Money &moneyLeft, const Money &moneyRight) {
-
-        if (strcmp(moneyLeft._currency, moneyRight._currency) == 0) {
+    Money Money::operator-(const Money &other) const
+    {
+        if (strcmp(this->_currency, other._currency) == 0) {
             
-            return Money::ApproximatelyEquals(moneyLeft._count, moneyRight._count);
+            return Money(this->_count - other._count, _currency);
+        }
+        else 
+            return Default;
+    }
+
+    Money& Money::operator+=(const Money& other)
+    {
+        return *this = *this + other;
+    }
+
+    bool operator==(const Money &left, const Money &right) {
+
+        if (strcmp(left._currency, right._currency) == 0) {
+            
+            return Money::ApproximatelyEquals(left._count, right._count);
         }
         else
             return false;
     }
 
-    Money Money::operator*(const float mult)
+    Money Money::operator*(float multiplier) const
     {
-        return Money(_count * mult, this->_currency);
+        return Money(_count * multiplier, this->_currency);
     }
 
     bool Money::ApproximatelyEquals(float left, float right)
@@ -85,4 +83,3 @@ namespace MoneyLogic
     }
 
 }
-

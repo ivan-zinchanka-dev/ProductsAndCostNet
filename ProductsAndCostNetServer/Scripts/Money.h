@@ -8,7 +8,7 @@ namespace MoneyLogic
 {
     struct Money
     {
-    private:
+    protected:
 
         float _count = -1.0f;
         char _currency[6] = "N/D";
@@ -21,11 +21,11 @@ namespace MoneyLogic
         friend ostream& operator<<(ostream&, const Money&);
         friend istream& operator>>(istream&, Money&);
         Money& operator=(const Money&);
-        Money operator+(const Money&);
-        Money operator-(const Money&);
+        Money operator+(const Money&) const;
+        Money operator-(const Money&) const;
         Money& operator+=(const Money&);
         friend bool operator==(const Money&, const Money&);
-        Money operator*(const float);
+        Money operator*(float) const;
         static bool ApproximatelyEquals(float, float);
         
     };
