@@ -1,9 +1,4 @@
 ﻿#include "ServerManager.h"
-#include "ProductQuery.h"
-
-#include <sstream>
-#include <list>
-#include <vector>
 
 volatile int ServerManager::_clientsCount = 0;
 volatile ServerState ServerManager::_state = ServerState::WORKING;
@@ -13,7 +8,6 @@ DWORD ServerManager::AdminCall(LPVOID lpVoid)
 {
     try
     {
-        //_productStore = ProductStore("Resources\\database.bin");
         bool needToExit = false;
         
         while (!needToExit)
@@ -79,21 +73,14 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
         string rawCommand = message.substr(0, COMMAND_SIZE);
         const char* command = rawCommand.c_str();
         
-        cout << "Received: " << command <<endl;
-        
         if (strcmp(command, VERIFY_PRODUCT) == 0)
         {
-            cout << "Verify" <<endl;
-
             string productName = message.substr(COMMAND_SIZE, message.size());
             strcpy_s(messageBuffer, _productStore.ContainsProduct(productName) ? STR_TRUE : STR_FALSE);
             send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
         }
         else if (strcmp(command, CALCULATE_QUERY_COST) == 0)
         {
-            cout << "Calc" <<endl;
-            //string serializedQuery = message.substr(COMMAND_SIZE, message.size());
-
             stringstream serializedQuery;
             serializedQuery.str(message.substr(COMMAND_SIZE, message.size()));
             
@@ -101,53 +88,16 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
             productQuery->UpdateProductsInfo(_productStore);
 
             Money cost = productQuery->CalculateCost();
-            
-            cout<< "Cost" << cost;
-            
+
             stringstream messageBufferStream;
             messageBufferStream << cost;
-
-            cout<< "Cost" << messageBufferStream.str();
-            
             strcpy_s(messageBuffer, messageBufferStream.str().c_str());
             send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
             
             delete productQuery;
-            
-            /*string queryWordBuffer;
-            vector<string> queryNames;
-            vector<string> queryCounts;
-
-            bool toNames = true;
-            
-            while (getline(serializedQuery, queryWordBuffer, QUERY_WORDS_DELIMITER))
-            {
-                toNames ? queryNames.emplace_back(queryWordBuffer) : queryCounts.emplace_back(queryWordBuffer);
-                toNames = !toNames;
-            }
-
-            list<Product> productQuery;
-            
-            for (int i = 0; i < queryNames.size(); i++)
-            {
-                Product deserializedProduct = Product(queryNames.at(i).c_str(), Default, stoi(queryCounts.at(i)));
-                productQuery.emplace_back(deserializedProduct);
-            }
-
-            for (auto p : productQuery)
-            {
-                cout << p << endl;
-            }*/
-
-            
-            
-           
-            
-            
         }
         else if (strcmp(command, COMPLETE_SESSION) == 0)
         {
-            cout << "Complete" <<endl;
             break;
         }
     } 

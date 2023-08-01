@@ -71,13 +71,9 @@ int main(int argc, char* argv[]) {
 			}
 
 			closesocket(clientSocket);
-
-			puts("END");
 			
 			WSACleanup();
 			return EXIT_FAILURE;
 		}
-		
 	}
-	
 }

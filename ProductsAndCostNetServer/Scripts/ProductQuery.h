@@ -1,12 +1,12 @@
 ﻿#pragma once
-#include <list>
-#include <functional>
-#include <sstream>
-#include <vector>
-
-#define QUERY_WORDS_DELIMITER '|'
 
 #include "ProductStore.h"
+
+#include <vector>
+#include <list>
+#include <sstream>
+
+#define QUERY_WORDS_DELIMITER '|'
 
 using namespace std;
 

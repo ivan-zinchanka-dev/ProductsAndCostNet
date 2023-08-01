@@ -6,7 +6,7 @@ using namespace std;
 
 namespace MoneyLogic
 {
-    class Money
+    struct Money
     {
     private:
 
@@ -25,13 +25,8 @@ namespace MoneyLogic
         Money operator-(const Money&);
         Money& operator+=(const Money&);
         friend bool operator==(const Money&, const Money&);
+        Money operator*(const float);
         static bool ApproximatelyEquals(float, float);
-
-        //template<typename T> Money operator*(T);
-        template<typename T> Money operator*(T& mult){
-    
-            return Money(_count * static_cast<float>(mult), this->_currency);
-        }
         
     };
 

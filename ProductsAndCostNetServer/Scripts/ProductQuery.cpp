@@ -23,26 +23,10 @@ namespace ProductsLogic
             Product deserializedProduct = Product(queryNames.at(i).c_str(), Default, stoi(queryCounts.at(i)));
             _query.emplace_back(make_shared<Product>(deserializedProduct));
         }
-
-        for (auto p : _query)
-        {
-            cout << p << endl;
-        }
-        
     }
 
     void ProductQuery::UpdateProductsInfo(const ProductStore& store) const
     {
-        /*for (auto it = _query.begin(); it != _query.end(); ++it)
-        {
-            Product foundProduct = store.FindProduct((*it).GetName());
-            if (!foundProduct.IsDefault())
-            {
-                (*it).SetCost(foundProduct.GetCost());
-            }
-            
-        }*/
-        
         for (shared_ptr<Product> productInfo : _query)
         {
             Product foundProduct = store.FindProduct((*productInfo).GetName());
@@ -50,7 +34,6 @@ namespace ProductsLogic
             if (!foundProduct.IsDefault())
             {
                 (*productInfo).SetUnitCost(foundProduct.GetUnitCost());
-                //productInfo.SetCost(foundProduct.GetCost());
             }
         }
     }

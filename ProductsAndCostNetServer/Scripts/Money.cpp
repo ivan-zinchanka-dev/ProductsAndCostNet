@@ -73,12 +73,10 @@ namespace MoneyLogic
             return false;
     }
 
-    /*template<typename T>
-    Money Money::operator*(T mult){
-    
-        return Money(_count * static_cast<float>(mult), this->_currency);
-    }*/
-    
+    Money Money::operator*(const float mult)
+    {
+        return Money(_count * mult, this->_currency);
+    }
 
     bool Money::ApproximatelyEquals(float left, float right)
     {
