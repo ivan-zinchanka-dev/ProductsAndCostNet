@@ -24,8 +24,9 @@ namespace ProductsLogic
         friend ostream& operator<<(ostream&, const Product&);
         bool IsDefault() const;
         const char* GetName() const;
-        Money GetCost() const;
-        void SetCost(Money cost);
+        Money GetUnitCost() const;
+        void SetUnitCost(Money cost);
+        Money GetTotalCost();
         
     };
 }

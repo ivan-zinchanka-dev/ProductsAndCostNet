@@ -16,12 +16,12 @@ namespace ProductsLogic
             toNames = !toNames;
         }
 
-        _query = list<Product>();
+        _query = list<shared_ptr<Product>>();
             
         for (int i = 0; i < queryNames.size(); i++)
         {
             Product deserializedProduct = Product(queryNames.at(i).c_str(), Default, stoi(queryCounts.at(i)));
-            _query.emplace_back(deserializedProduct);
+            _query.emplace_back(make_shared<Product>(deserializedProduct));
         }
 
         for (auto p : _query)
@@ -33,13 +33,24 @@ namespace ProductsLogic
 
     void ProductQuery::UpdateProductsInfo(const ProductStore& store) const
     {
-        for (Product productInfo : _query)
+        /*for (auto it = _query.begin(); it != _query.end(); ++it)
         {
-            Product foundProduct = store.FindProduct(productInfo.GetName());
+            Product foundProduct = store.FindProduct((*it).GetName());
+            if (!foundProduct.IsDefault())
+            {
+                (*it).SetCost(foundProduct.GetCost());
+            }
+            
+        }*/
+        
+        for (shared_ptr<Product> productInfo : _query)
+        {
+            Product foundProduct = store.FindProduct((*productInfo).GetName());
             
             if (!foundProduct.IsDefault())
             {
-                productInfo.SetCost(foundProduct.GetCost());
+                (*productInfo).SetUnitCost(foundProduct.GetUnitCost());
+                //productInfo.SetCost(foundProduct.GetCost());
             }
         }
     }
@@ -48,9 +59,9 @@ namespace ProductsLogic
     {
         Money cost = Money(0.0f, "USD");
 
-        for (const Product& productInfo : _query)
+        for (shared_ptr<Product> productInfo : _query)
         {
-            cost += productInfo.GetCost();
+            cost += (*productInfo).GetTotalCost();
         }
         
         return cost;

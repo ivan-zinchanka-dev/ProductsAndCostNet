@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <list>
+#include <functional>
 #include <sstream>
 #include <vector>
 
@@ -15,7 +16,7 @@ namespace ProductsLogic
     {
     private:
 
-        list<Product> _query;
+        list<shared_ptr<Product>> _query;
         
     public:
     

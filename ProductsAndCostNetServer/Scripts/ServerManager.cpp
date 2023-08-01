@@ -97,7 +97,24 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
             stringstream serializedQuery;
             serializedQuery.str(message.substr(COMMAND_SIZE, message.size()));
             
-            string queryWordBuffer;
+            ProductQuery *productQuery = new ProductQuery(serializedQuery);
+            productQuery->UpdateProductsInfo(_productStore);
+
+            Money cost = productQuery->CalculateCost();
+            
+            cout<< "Cost" << cost;
+            
+            stringstream messageBufferStream;
+            messageBufferStream << cost;
+
+            cout<< "Cost" << messageBufferStream.str();
+            
+            strcpy_s(messageBuffer, messageBufferStream.str().c_str());
+            send(clientSocket, messageBuffer, sizeof(messageBuffer), 0);	
+            
+            delete productQuery;
+            
+            /*string queryWordBuffer;
             vector<string> queryNames;
             vector<string> queryCounts;
 
@@ -120,17 +137,11 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
             for (auto p : productQuery)
             {
                 cout << p << endl;
-            }
-
-            
-            
-            /*char* next_token = nullptr;
-            char *word = strtok_s(const_cast<char*>(serializedQuery.c_str()), QUERY_WORDS_DELIMITER, &next_token); 
-
-            while (word != nullptr) {
-                
-                word = strtok(nullptr, QUERY_WORDS_DELIMITER);
             }*/
+
+            
+            
+           
             
             
         }

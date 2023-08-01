@@ -36,14 +36,19 @@ namespace ProductsLogic
         return _name;
     }
 
-    Money Product::GetCost() const
+    Money Product::GetUnitCost() const
     {
         return _cost;
     }
 
-    void Product::SetCost(Money cost)
+    void Product::SetUnitCost(Money cost)
     {
         _cost = cost;
+    }
+
+    Money Product::GetTotalCost()
+    {
+        return _cost * _count;
     }
 }
 
