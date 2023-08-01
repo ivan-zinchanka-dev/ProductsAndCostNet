@@ -29,6 +29,7 @@ private:
     
     static volatile int _clientsCount;
     static ProductStore _productStore;
+    static const char* AdminMainMenu;
     
 public:
     

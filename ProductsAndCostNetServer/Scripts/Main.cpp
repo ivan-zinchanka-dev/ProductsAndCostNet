@@ -57,16 +57,7 @@ int main(int argc, char* argv[]) {
 			while (clientSocket = accept(serverSocket, reinterpret_cast<sockaddr*>(&remoteAddress), &remoteAddressSize)) {
 				
 				DWORD clientThreadId;
-				CreateThread(nullptr, NULL, ServerManager::ClientCall, &clientSocket, NULL, &clientThreadId);		
-
-				if (ServerManager::GetClientsCount() > 0) {
-			
-					printf_s("Clients online count: %d.\n", ServerManager::GetClientsCount());	
-				}
-				else {
-			
-					puts("No clients online.");					
-				}
+				CreateThread(nullptr, NULL, ServerManager::ClientCall, &clientSocket, NULL, &clientThreadId);
 			}
 
 			closesocket(clientSocket);

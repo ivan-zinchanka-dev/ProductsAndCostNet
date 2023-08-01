@@ -28,9 +28,9 @@ namespace ProductsLogic
         class EncryptionUtility
         {
         public:
-            static const int EncryptionKey = 6;
-            static char* Encrypt(char*);
-            static char* Decrypt(char*);
+            static const int EncryptionKey = 7;
+            static char* Encrypt(char*, int);
+            static char* Decrypt(char*, int);
         };
     
         int GenerateProductCode() const;

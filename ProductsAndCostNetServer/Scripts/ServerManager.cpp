@@ -2,20 +2,22 @@
 
 volatile int ServerManager::_clientsCount = 0;
 ProductStore ServerManager::_productStore = ProductStore("Resources\\database.bin");
+const char* ServerManager::AdminMainMenu =
+    "\n"
+    "1. View all products\n"
+    "2. Add product\n"
+    "3. Edit product\n"
+    "4. Remove product\n"
+    "0. Show clients count\n"
+    "\n";
 
 DWORD ServerManager::AdminCall(LPVOID lpVoid)
 {
     try
     {
-        bool needToExit = false;
-        
-        while (!needToExit)
+        while (true)
         {
-            cout << "1. View all products\n"
-                "2. Add product\n"
-                "3. Edit product\n"
-                "4. Remove product\n"
-                "0. Exit\n";
+            cout << AdminMainMenu;
         
             switch (_getch())
             {
@@ -35,7 +37,11 @@ DWORD ServerManager::AdminCall(LPVOID lpVoid)
             case '4':
                 _productStore.TryRemoveProduct();
                 break;
-            
+
+            case '0':
+                cout << "Clients online count: " << _clientsCount << endl;
+                break;
+                
             default:
                 break;
             }
