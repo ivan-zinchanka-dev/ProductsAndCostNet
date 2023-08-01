@@ -1,7 +1,6 @@
 ﻿#include "ServerManager.h"
 
 volatile int ServerManager::_clientsCount = 0;
-volatile ServerState ServerManager::_state = ServerState::WORKING;
 ProductStore ServerManager::_productStore = ProductStore("Resources\\database.bin");
 
 DWORD ServerManager::AdminCall(LPVOID lpVoid)
@@ -36,17 +35,11 @@ DWORD ServerManager::AdminCall(LPVOID lpVoid)
             case '4':
                 _productStore.TryRemoveProduct();
                 break;
-
-            case '0':
-                needToExit = true;
-                break;
-
+            
             default:
                 break;
             }
         }
-
-        ShutDownDemand();
     }
     catch (exception &ex)
     {
@@ -112,14 +105,4 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
 int ServerManager::GetClientsCount()
 {
     return _clientsCount;
-}
-
-ServerState ServerManager::GetState()
-{
-    return _state;
-}
-
-void ServerManager::ShutDownDemand()
-{
-    _state = ServerState::SHUTTING_DOWN;
 }

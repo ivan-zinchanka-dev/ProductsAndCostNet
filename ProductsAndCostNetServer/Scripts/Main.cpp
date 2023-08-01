@@ -2,10 +2,10 @@
 #include <iostream>
 #include <conio.h>
 
+#pragma comment(lib, "Ws2_32.lib")
+
 #include "ProductStore.h"
 #include "ServerManager.h"
-
-#pragma comment(lib, "Ws2_32.lib")
 
 using namespace std;
 using namespace ProductsLogic;
@@ -61,13 +61,12 @@ int main(int argc, char* argv[]) {
 
 				if (ServerManager::GetClientsCount() > 0) {
 			
-					printf_s("Clients online: %d.\n", ServerManager::GetClientsCount());	
+					printf_s("Clients online count: %d.\n", ServerManager::GetClientsCount());	
 				}
 				else {
 			
-					puts("No clients in online.");					
+					puts("No clients online.");					
 				}
-
 			}
 
 			closesocket(clientSocket);
