@@ -327,6 +327,19 @@ namespace ProductsLogic
         return false;
         
     }
+
+    Product ProductStore::FindProduct(const char* productName) const
+    {
+        for (const auto& pair : _productsSet)
+        {
+            if (strcmp(pair.second.GetName(), productName) == 0)
+            {
+                return pair.second;
+            }
+        }
+        
+        return Product();
+    }
 }
 
 

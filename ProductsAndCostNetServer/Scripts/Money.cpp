@@ -57,7 +57,12 @@ namespace MoneyLogic
             return Default;
         
     }
-    
+
+    Money& Money::operator+=(const Money& moneyObject)
+    {
+        return *this = *this + moneyObject;
+    }
+
     bool operator==(const Money &moneyLeft, const Money &moneyRight) {
 
         if (strcmp(moneyLeft._currency, moneyRight._currency) == 0) {

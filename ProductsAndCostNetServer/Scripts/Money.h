@@ -23,6 +23,7 @@ namespace MoneyLogic
         Money& operator=(const Money&);
         Money operator+(const Money&);
         Money operator-(const Money&);
+        Money& operator+=(const Money&);
         friend bool operator==(const Money&, const Money&);
         template<typename T>
         Money operator*(T&);

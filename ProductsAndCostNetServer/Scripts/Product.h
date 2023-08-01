@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Money.h"
 
+#define NOT_SET "not_set"
+
 using namespace MoneyLogic;
 
 namespace ProductsLogic
@@ -9,8 +11,8 @@ namespace ProductsLogic
     {
 
     private:
-    
-        char _name[30] = "not_set";
+        
+        char _name[30] = NOT_SET;
         Money _cost;
         int _count = 0;
     
@@ -20,7 +22,10 @@ namespace ProductsLogic
         Product(const char *, Money, int);
         Product(const Product&);
         friend ostream& operator<<(ostream&, const Product&);
+        bool IsDefault() const;
         const char* GetName() const;
+        Money GetCost() const;
+        void SetCost(Money cost);
         
     };
 }

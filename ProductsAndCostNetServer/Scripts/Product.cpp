@@ -26,11 +26,25 @@ namespace ProductsLogic
                 "  Count: " << product._count;
     }
 
+    bool Product::IsDefault() const
+    {
+        return strcmp(this->_name, NOT_SET) == 0;
+    }
+
     const char* Product::GetName() const
     {
         return _name;
     }
-    
+
+    Money Product::GetCost() const
+    {
+        return _cost;
+    }
+
+    void Product::SetCost(Money cost)
+    {
+        _cost = cost;
+    }
 }
 
 

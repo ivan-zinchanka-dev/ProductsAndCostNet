@@ -45,6 +45,7 @@ namespace ProductsLogic
         void EditProduct();
         void TryRemoveProduct();
         bool ContainsProduct(const string& productName);
+        Product FindProduct(const char* productName) const;
         
     };
 }

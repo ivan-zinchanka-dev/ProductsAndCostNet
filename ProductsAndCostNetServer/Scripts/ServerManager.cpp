@@ -1,4 +1,5 @@
 ﻿#include "ServerManager.h"
+#include "ProductQuery.h"
 
 #include <sstream>
 #include <list>
@@ -108,15 +109,15 @@ DWORD ServerManager::ClientCall(LPVOID clientSocketPtr)
                 toNames = !toNames;
             }
 
-            list<Product> productsQuery;
+            list<Product> productQuery;
             
             for (int i = 0; i < queryNames.size(); i++)
             {
                 Product deserializedProduct = Product(queryNames.at(i).c_str(), Default, stoi(queryCounts.at(i)));
-                productsQuery.emplace_back(deserializedProduct);
+                productQuery.emplace_back(deserializedProduct);
             }
 
-            for (auto p : productsQuery)
+            for (auto p : productQuery)
             {
                 cout << p << endl;
             }

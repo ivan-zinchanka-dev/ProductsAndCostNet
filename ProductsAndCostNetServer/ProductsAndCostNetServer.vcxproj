@@ -222,12 +222,14 @@
     </ClCompile>
     <ClCompile Include="Scripts\Money.cpp" />
     <ClCompile Include="Scripts\Product.cpp" />
+    <ClCompile Include="Scripts\ProductQuery.cpp" />
     <ClCompile Include="Scripts\ProductStore.cpp" />
     <ClCompile Include="Scripts\ServerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Money.h" />
     <ClInclude Include="Scripts\Product.h" />
+    <ClInclude Include="Scripts\ProductQuery.h" />
     <ClInclude Include="Scripts\ProductStore.h" />
     <ClInclude Include="Scripts\ServerManager.h" />
   </ItemGroup>
