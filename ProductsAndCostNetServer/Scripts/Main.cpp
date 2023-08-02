@@ -1,3 +1,6 @@
+#define _SCL_SECURE_NO_WARNINGS
+#define _ITERATOR_DEBUG_LEVEL 2
+
 #include <winsock2.h>
 #include <iostream>
 #include <conio.h>
